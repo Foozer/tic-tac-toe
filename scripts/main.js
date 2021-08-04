@@ -14,6 +14,9 @@ const DisplayController = ((doc) => {
     boardSquares.forEach((square) => 
         square.addEventListener("click", (e) => {
             console.log((e.target.dataset.index));
+            GameBoard.board.splice(e.target.dataset.index, 1, "x");
+            GameBoard.drawBoard();
+            //GameBoard.updateBoard(e.target.dataset.index, "x");
         })
     );
     return { makeBoard };
@@ -26,8 +29,11 @@ const GameBoard = (() => {
             DisplayController.makeBoard(`[data-index='${i}']`,`${board[i]}`);
         }
     };
+    const updateBoard = (index, symbol) => {
+        DisplayController.makeBoard(`[data-index='${index}`, symbol);
+    }
 
-    return { board, drawBoard };
+    return { board, drawBoard, updateBoard };
 
 })();
 
@@ -38,5 +44,5 @@ const Player = (name, symbol) => {
 const Game = (() => {
     const player1 = Player("Iain", "X");
     const player2 = Player("Bob", "O");
-    GameBoard.drawBoard();
+    //GameBoard.drawBoard();
 })();
