@@ -5,22 +5,30 @@
 //player //factory
 
 const DisplayController = ((doc) => {
+    const boardSquares = document.querySelectorAll(".board");
     const makeBoard = (selector, message) => {
         if(!!doc && "querySelector" in doc) {
             document.querySelector(selector).textContent = message;
         }
     };
+    boardSquares.forEach((square) => 
+        square.addEventListener("click", (e) => {
+            console.log((e.target.dataset.index));
+        })
+    );
     return { makeBoard };
 })(document);
 
 const GameBoard = (() => {
-    const board = ['x','o','x','o','x','o','x','o','x'];
+    const board = ['','','','','','','','',''];
     const drawBoard = () => {
         for (let i=0; i < board.length; i++) {
             DisplayController.makeBoard(`[data-index='${i}']`,`${board[i]}`);
         }
     };
+
     return { board, drawBoard };
+
 })();
 
 const Player = (name, symbol) => {
